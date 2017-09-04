@@ -3,7 +3,7 @@
     "version": "1.0.1",
     "description": "RowGroup for DataTables ",
     "files": [
-        "js/dataTables.rowGroup.js"
+        "js/**/*.js"
     ],
     "main": "./js/dataTables.rowGroup.js",
     "keywords": [
