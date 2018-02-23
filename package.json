@@ -5,7 +5,7 @@
     "files": [
         "js/**/*.js"
     ],
-    "main": "./js/dataTables.rowGroup.js",
+    "main": "js/dataTables.rowGroup.js",
     "keywords": [
         "row grouping",
         "DataTables",
