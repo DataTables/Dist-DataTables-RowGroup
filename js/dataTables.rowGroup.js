@@ -68,13 +68,8 @@ var RowGroup = function ( dt, opts ) {
 	this.s = {
 		dt: new DataTable.Api( dt ),
 
-		dataFn: []
+		dataFn: DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc )
 	};
-
-	for (var i = 0; i < this.c.dataSrc.length; i++) {
-		this.s.dataFn.push(DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc[i] ))
-	}
-	
 
 	// DOM items
 	this.dom = {
@@ -176,10 +171,6 @@ $.extend( RowGroup.prototype, {
 		dt.on( 'destroy', function () {
 			dt.off( '.dtrg' );
 		} );
-
-		dt.on('responsive-resize.dt', function () {
-			that._adjustColspan();
-		})
 	},
 
 
@@ -193,7 +184,7 @@ $.extend( RowGroup.prototype, {
 	 */
 	_adjustColspan: function ()
 	{
-		$( 'tr.'+this.c.className, this.s.dt.table().body() ).find('td')
+		$( 'tr.'+this.c.className, this.s.dt.table().body() )
 			.attr( 'colspan', this._colspan() );
 	},
 
@@ -214,55 +205,49 @@ $.extend( RowGroup.prototype, {
 	 */
 	_draw: function ()
 	{
-		var dataFn = this.s.dataFn
-		for(var j = 0; j < dataFn.length; j++)
-		{
-			var dt = this.s.dt;
-			var rows = dt.rows( { page: 'current' } );
-			var groupedRows = [];
-			var last, lastGroupBefore, display;
+		var that = this;
+		var dt = this.s.dt;
+		var rows = dt.rows( { page: 'current' } );
+		var groupedRows = [];
+		var last, display;
 
-			rows.every( function () {
-				var d = this.data();
-				var group = dataFn[j]( d );
-				var groupBefore = j > 0 ? dataFn[j - 1]( d ) : undefined;
+		rows.every( function () {
+			var d = this.data();
+			var group = that.s.dataFn( d );
 
-				if ( last === undefined || group !== last ||
-						 (groupBefore !== undefined && lastGroupBefore === undefined) ||
-						 (groupBefore !== undefined && groupBefore !== lastGroupBefore) ) {
-					groupedRows.push( [] );
-					last = group;
-					groupBefore !== undefined ? lastGroupBefore = groupBefore : lastGroupBefore = undefined
+			if ( group === null || group === undefined ) {
+				group = that.c.emptyDataGroup;
+			}
+			
+			if ( last === undefined || group !== last ) {
+				groupedRows.push( [] );
+				last = group;
+			}
+			
+			groupedRows[ groupedRows.length - 1 ].push( this.index() );
+		} );
+
+		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
+			var group = groupedRows[i];
+			var firstRow = dt.row(group[0]);
+			var groupName = this.s.dataFn( firstRow.data() );
+			var row;
+
+			if ( this.c.startRender ) {
+				display = this.c.startRender.call( this, dt.rows(group), groupName );
+				row = this._rowWrap( display, this.c.startClassName );
+
+				if ( row ) {
+					row.insertBefore( firstRow.node() );
 				}
-				
-				groupedRows[ groupedRows.length - 1 ].push( this.index() );
-			} );
+			}
 
-			for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
-				var group = groupedRows[i];
-				var firstRow = dt.row(group[0]);
-				var groupName = dataFn[j]( firstRow.data() );
-				
-				var gpm = this.s.dt.columns().header()[this.c.dataSrc[j]].innerText.capitalize()
+			if ( this.c.endRender ) {
+				display = this.c.endRender.call( this, dt.rows(group), groupName );
+				row = this._rowWrap( display, this.c.endClassName );
 
-				groupName = gpm ? gpm + ': ' + groupName : groupName
-
-				var gpNM = j === 0 ? this.c.startClassName + '-' + j : 'subgroup-' + j
-				
-				if ( this.c.startRender ) {
-					display = this.c.startRender.call( this, dt.rows(group), groupName );
-
-					this
-						._rowWrap( display, gpNM, group, j )
-						.insertBefore( firstRow.node() );
-				}
-
-				if ( this.c.endRender ) {
-					display = this.c.endRender.call( this, dt.rows(group), groupName );
-					
-					this
-						._rowWrap( display, this.c.endClassName, group, j )
-						.insertAfter( dt.row( group[ group.length-1 ] ).node() );
+				if ( row ) {
+					row.insertAfter( dt.row( group[ group.length-1 ] ).node() );
 				}
 			}
 		}
@@ -273,11 +258,9 @@ $.extend( RowGroup.prototype, {
 	 * as a row, by wrapping it in a row, or detecting that it is a row.
 	 * @param [node|jQuery|string] display Display value
 	 * @param [string] className Class to add to the row
-	 * @param [array] group
-	 * @param [number] group level
 	 * @private
 	 */
-	_rowWrap: function ( display, className, group, level )
+	_rowWrap: function ( display, className )
 	{
 		var row;
 		
@@ -304,83 +287,9 @@ $.extend( RowGroup.prototype, {
 				);
 		}
 
-		var dt = this.s.dt
-
-		row.addClass( this.c.className )
-		   .addClass( className )
-		   .css('cursor', 'pointer')
-
-		$(row).on('click', function() {
-			var currentRow = $(this).next()
-			var hide = true
-			
-			if($(this).data('colapsed')) {
-				$(this).data('colapsed', false)
-				hide = false
-			}
-			else {
-				$(this).data('colapsed', true)
-				hide = true
-			}
-			
-			// Verifica se é um grupo root
-			var isRootGroup =
-				$(this)
-					.attr("class")
-					.split(" ")
-					.map( function (item) {
-						return item.indexOf("group-start-") !== -1;
-					})
-					.indexOf(true) !== -1;
-
-			if (isRootGroup) {
-				// Percorre todas as linhas até encontrar o proximo grupo root
-				while (
-					$(currentRow).attr("class") &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("group-start-") !== -1;
-							})
-							.indexOf(true) !== -1
-					)
-				) {
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
-					currentRow = $(currentRow).next();
-				}
-			} else {
-				// Se for um subgrupo
-				// Percorre ate encontrar o proximo subgrupo
-				while (
-					$(currentRow).attr("class") &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("subgroup") !== -1;
-							})
-							.indexOf(true) !== -1
-					) &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("group-start-") !== -1;
-							})
-							.indexOf(true) !== -1
-					)
-				) {
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
-					currentRow = $(currentRow).next();
-				}
-			}
-		})
-
-		return row;
+		return row
+			.addClass( this.c.className )
+			.addClass( className );
 	}
 } );
 
