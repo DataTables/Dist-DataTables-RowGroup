@@ -4,6 +4,9 @@
         "js/dataTables.rowGroup.js",
         "js/dataTables.rowGroup.min.js"
     ],
+    "types": [
+        "types.d.ts"
+    ],
     "src-repo": "http://github.com/DataTables/RowGroup",
     "last-sync": "e54d3f7eb142a928ab88f09769159105d4874415",
     "last-tag": "1.1.2"
