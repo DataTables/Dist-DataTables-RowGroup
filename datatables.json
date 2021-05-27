@@ -1,13 +1,12 @@
 {
-    "css": [],
     "js": [
         "js/dataTables.rowGroup.js",
         "js/dataTables.rowGroup.min.js"
     ],
+    "css": [],
     "types": [
-        "types.d.ts"
+        "types/types.d.ts"
     ],
     "src-repo": "http://github.com/DataTables/RowGroup",
-    "last-sync": "2e01d58ad9e5a61aa951bb46b9ceac54d27005d5",
     "last-tag": "1.1.2"
 }

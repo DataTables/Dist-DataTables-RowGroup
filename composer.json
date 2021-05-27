@@ -1,25 +1,31 @@
-
 {
-	"name": "datatables.net/datatables.net-rowgroup",
-	"version": "1.1.2",
-	"description": "DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table. This is the RowGroup extension for DataTables.", 
-	"homepage": "http://www.datatables.net/",
-	"authors": [{
-		"name": "SpryMedia",
-		"homepage": "https://datatables.net"
-	}], 
-	"license": [
-		"MIT"
-	],
+    "version": "1.1.2",
+    "name": "datatables.net/datatables.net-rowgroup",
+    "description": "RowGroup adds the ability to easily group rows in a DataTable by a given data point. The grouping is shown as an inserted row either before or after the group. This is RowGroup for DataTables",
+    "support": {
+        "forum": "https://datatables.net/forums",
+        "source": "https://github.com/DataTables/Dist-DataTables-RowGroup"
+    },
+    "homepage": "http://www.datatables.net/",
+    "authors": [
+        {
+            "name": "SpryMedia",
+            "homepage": "https://datatables.net"
+        }
+    ],
+    "license": [
+        "MIT"
+    ],
     "prefer-stable": true,
     "minimum-stability": "dev",
-	"support": {
-		"forum": "https://datatables.net/forums",
-		"source": "https://github.com/DataTables/Dist-DataTables-RowGroup/"
-    },
-    "keywords": ["DataTables", "jQuery", "table", "rowgroup"],
+    "keywords": [
+        "RowGroup",
+ "Row Grouping",
+        "Datatables",
+        "jQuery",
+        "table"
+    ],
     "require": {
-        "components/jquery":">=3.5.1",
-        "datatables.net/datatables.net":">=1.10.15"
+        "datatables.net/datatables.net": ">=1.10.24"
     }
 }

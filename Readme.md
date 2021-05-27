@@ -1,6 +1,6 @@
 # RowGroup for DataTables 
 
-This package contains distribution files for the [RowGroup extension](https://datatables.net/extensions/rowgroup) for [DataTables](https://datatables.net/). Only the core software for this library is contained in this package - to be correctly styled, a styling package for RowGroup must also be included. Styling options include DataTable's native styling, [Bootstrap](http://getbootstrap.com) and [Foundation](http://foundation.zurb.com/).
+This package contains distribution files for the [RowGroup extension](https://datatables.net/extensions/RowGroup) for [DataTables](https://datatables.net/). Only the core software for this library is contained in this package - to be correctly styled, a styling package for RowGroup must also be included. Styling options include DataTable's native styling, [Bootstrap](http://getbootstrap.com) and [Foundation](http://foundation.zurb.com/).
 
 RowGroup adds the ability to easily group rows in a DataTable by a given data point. The grouping is shown as an inserted row either before or after the group.
 
@@ -19,7 +19,7 @@ npm install datatables.net-rowgroup
 
 ```
 var $ = require( 'jquery' );
-require( 'datatables.net-rowgroup' )( $ );
+require( 'datatables.net-rowgroup' )( window, $ );
 ```
 
 ### bower
@@ -32,8 +32,7 @@ bower install --save datatables.net-rowgroup
 
 ## Documentation
 
-Full documentation of the DataTables options, API and plug-in interface are available on the DOCS_LINK. The site also contains information on the wide variety of plug-ins that are available for DataTables, which can be used to enhance and customise your table even further.
-
+Full documentation and examples for RowGroup can be found [on the website](https://datatables.net/extensions/rowgroup).
 
 ## Bug / Support
 
