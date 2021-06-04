@@ -8,5 +8,5 @@
         "types/types.d.ts"
     ],
     "src-repo": "http://github.com/DataTables/RowGroup",
-    "last-tag": "1.1.2"
+    "last-tag": "1.1.3"
 }
