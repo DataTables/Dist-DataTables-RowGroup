@@ -1,5 +1,5 @@
 {
-    "version": "1.1.4",
+    "version": "1.2.0",
     "name": "datatables.net/datatables.net-rowgroup",
     "description": "RowGroup adds the ability to easily group rows in a DataTable by a given data point. The grouping is shown as an inserted row either before or after the group. This is RowGroup for DataTables",
     "support": {
@@ -26,6 +26,6 @@
         "table"
     ],
     "require": {
-        "datatables.net/datatables.net": ">=1.11.5"
+        "datatables.net/datatables.net": ">=1.12.1"
     }
 }

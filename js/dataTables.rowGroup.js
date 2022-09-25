@@ -1,24 +1,6 @@
-/*! RowGroup 1.1.4
- * ©2017-2021 SpryMedia Ltd - datatables.net/license
- */
 
-/**
- * @summary     RowGroup
- * @description RowGrouping for DataTables
- * @version     1.1.4
- * @file        dataTables.rowGroup.js
- * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     datatables.net
- * @copyright   Copyright 2017-2021 SpryMedia Ltd.
- *
- * This source file is free software, available under the following license:
- *   MIT license - http://datatables.net/license/mit
- *
- * This source file is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
- *
- * For details please refer to: http://www.datatables.net
+/*! RowGroup 1.2.0
+ * ©2017-2022 SpryMedia Ltd - datatables.net/license
  */
 
 (function( factory ){
@@ -32,12 +14,21 @@
 		// CommonJS
 		module.exports = function (root, $) {
 			if ( ! root ) {
+				// CommonJS environments without a window global must pass a
+				// root. This will give an error otherwise
 				root = window;
 			}
 
-			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net')(root, $).$;
+			if ( ! $ ) {
+				$ = typeof window !== 'undefined' ? // jQuery's factory checks for a global window
+					require('jquery') :
+					require('jquery')( root );
 			}
+
+			if ( ! $.fn.dataTable ) {
+				require('datatables.net')(root, $);
+			}
+
 
 			return factory( $, root, root.document );
 		};
@@ -50,6 +41,25 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
+
+
+/**
+ * @summary     RowGroup
+ * @description RowGrouping for DataTables
+ * @version     1.2.0
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     datatables.net
+ * @copyright   SpryMedia Ltd.
+ *
+ * This source file is free software, available under the following license:
+ *   MIT license - http://datatables.net/license/mit
+ *
+ * This source file is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the license files for details.
+ *
+ * For details please refer to: http://www.datatables.net
+ */
 
 var RowGroup = function ( dt, opts ) {
 	// Sanity check that we are using DataTables 1.10 or newer
@@ -338,8 +348,9 @@ $.extend( RowGroup.prototype, {
 		else {
 			row = $('<tr/>')
 				.append(
-					$('<td/>')
+					$('<th/>')
 						.attr( 'colspan', this._colspan() )
+						.attr( 'scope', 'row' )
 						.append( display  )
 				);
 		}
@@ -413,7 +424,7 @@ RowGroup.defaults = {
 };
 
 
-RowGroup.version = "1.1.4";
+RowGroup.version = "1.2.0";
 
 
 $.fn.dataTable.RowGroup = RowGroup;
@@ -481,6 +492,5 @@ $(document).on( 'preInit.dt.dtrg', function (e, settings, json) {
 } );
 
 
-return RowGroup;
-
+return DataTable;
 }));
