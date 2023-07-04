@@ -10,6 +10,6 @@
         "types/types.d.ts"
     ],
     "src-repo": "http://github.com/DataTables/RowGroup",
-    "last-tag": "1.3.1",
+    "last-tag": "1.4.0",
     "last-sync": "e1cb59be23180030d3410fa81841f03eb42b0dbb"
 }
