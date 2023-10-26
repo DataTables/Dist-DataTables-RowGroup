@@ -1,4 +1,4 @@
-/*! RowGroup 1.4.1
+/*! RowGroup 1.5.0-dev
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -12,7 +12,7 @@ let $ = jQuery;
 /**
  * @summary     RowGroup
  * @description RowGrouping for DataTables
- * @version     1.4.1
+ * @version     1.5.0-dev
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -29,8 +29,8 @@ let $ = jQuery;
 
 var RowGroup = function (dt, opts) {
 	// Sanity check that we are using DataTables 1.10 or newer
-	if (!DataTable.versionCheck || !DataTable.versionCheck('1.10.8')) {
-		throw 'RowGroup requires DataTables 1.10.8 or newer';
+	if (!DataTable.versionCheck || !DataTable.versionCheck('1.11')) {
+		throw 'RowGroup requires DataTables 1.11 or newer';
 	}
 
 	// User and defaults configuration object
@@ -193,7 +193,7 @@ $.extend(RowGroup.prototype, {
 	 */
 	_group: function (level, rows) {
 		var fns = Array.isArray(this.c.dataSrc) ? this.c.dataSrc : [this.c.dataSrc];
-		var fn = DataTable.ext.oApi._fnGetObjectDataFn(fns[level]);
+		var fn = DataTable.util.get(fns[level]);
 		var dt = this.s.dt;
 		var group, last;
 		var data = [];
@@ -376,7 +376,7 @@ RowGroup.defaults = {
 	}
 };
 
-RowGroup.version = '1.4.1';
+RowGroup.version = '1.5.0-dev';
 
 $.fn.dataTable.RowGroup = RowGroup;
 $.fn.DataTable.RowGroup = RowGroup;
