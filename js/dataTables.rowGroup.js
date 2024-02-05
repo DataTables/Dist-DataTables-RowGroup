@@ -43,7 +43,7 @@
 		// Browser
 		factory( jQuery, window, document );
 	}
-}(function( $, window, document, undefined ) {
+}(function( $, window, document ) {
 'use strict';
 var DataTable = $.fn.dataTable;
 
@@ -244,7 +244,7 @@ $.extend(RowGroup.prototype, {
 			var rowIndex = rows[i];
 			var rowData = dt.row(rowIndex).data();
 
-			group = fn(rowData);
+			group = fn(rowData, level);
 
 			if (group === null || group === undefined) {
 				group = that.c.emptyDataGroup;
