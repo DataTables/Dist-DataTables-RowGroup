@@ -1,4 +1,4 @@
-/*! RowGroup 1.5.0-dev
+/*! RowGroup 1.5.0
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -52,7 +52,7 @@ var DataTable = $.fn.dataTable;
 /**
  * @summary     RowGroup
  * @description RowGrouping for DataTables
- * @version     1.5.0-dev
+ * @version     1.5.0
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -418,7 +418,7 @@ RowGroup.defaults = {
 	}
 };
 
-RowGroup.version = '1.5.0-dev';
+RowGroup.version = '1.5.0';
 
 $.fn.dataTable.RowGroup = RowGroup;
 $.fn.DataTable.RowGroup = RowGroup;
