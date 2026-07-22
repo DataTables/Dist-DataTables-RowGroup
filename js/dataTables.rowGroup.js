@@ -1,4 +1,4 @@
-/*! RowGroup 2.0.0-beta.1 for DataTables
+/*! RowGroup 2.0.0 for DataTables
  * Copyright (c) SpryMedia Ltd - datatables.net/license
  */
 
@@ -360,7 +360,7 @@ RowGroup.defaults = {
         return group;
     }
 };
-RowGroup.version = '2.0.0-beta.1';
+RowGroup.version = '2.0.0';
 
 
 DataTable.RowGroup = RowGroup;
