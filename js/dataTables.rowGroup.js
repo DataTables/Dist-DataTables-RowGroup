@@ -357,7 +357,7 @@ RowGroup.defaults = {
      * @function
      */
     startRender(rows, group, level) {
-        return group;
+        return util.escapeHtml(group);
     }
 };
 RowGroup.version = '2.0.0';
