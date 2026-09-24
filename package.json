@@ -35,8 +35,8 @@
         ".": {
             "types": "./types/types.d.ts",
             "import": "./js/dataTables.rowGroup.mjs",
-            "default": "./js/dataTables.rowGroup.mjs",
-            "require": "./js/dataTables.rowGroup.js"
+            "require": "./js/dataTables.rowGroup.js",
+            "default": "./js/dataTables.rowGroup.mjs"
         },
         "./js/*": "./js/*",
         "./package.json": "./package.json"
