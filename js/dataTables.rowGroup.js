@@ -1,4 +1,4 @@
-/*! RowGroup 2.1.0 for DataTables
+/*! RowGroup 2.1.1 for DataTables
  * Copyright (c) SpryMedia Ltd - datatables.net/license
  */
 
@@ -360,7 +360,7 @@ RowGroup.defaults = {
         return util.escapeHtml(group);
     }
 };
-RowGroup.version = '2.1.0';
+RowGroup.version = '2.1.1';
 
 
 DataTable.RowGroup = RowGroup;
